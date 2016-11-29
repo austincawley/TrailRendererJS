@@ -1,0 +1,27 @@
+{
+  "name": "TrailRendererJS",
+  "homepage": "https://github.com/mkkellogg/TrailRendererJS",
+  "authors": [
+    "Mark Kellogg <mkkellogg@gmail.com",
+    "Austin Cawley-Edwards <austin.cawley@gmail.com>"
+  ],
+  "description": "3D object trail renderer for Three.js",
+  "main": "js/TrailRenderer.js",
+  "keywords": [
+    "threejs",
+    "trail",
+    "webgl"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "chai": "^3.5.0",
+    "three.js": "threejs#r73"
+  }
+}

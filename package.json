@@ -1,0 +1,32 @@
+{
+  "name": "trail-renderer-js",
+  "version": "1.0.0",
+  "description": "3D object trail renderer for Three.js",
+  "main": "js/TrailRenderer.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkkellogg/TrailRendererJS.git"
+  },
+  "keywords": [
+    "threejs",
+    "trail",
+    "webgl"
+  ],
+  "author": "Mark Kellogg <mkkellogg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkkellogg/TrailRendererJS/issues"
+  },
+  "homepage": "https://github.com/mkkellogg/TrailRendererJS#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.2",
+    "gulp": "^3.9.1",
+    "gulp-mocha-phantomjs": "^0.12.0"
+  }
+}

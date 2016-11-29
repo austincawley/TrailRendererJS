@@ -388,7 +388,7 @@ THREE.TrailRenderer.prototype.initializeMesh = function () {
 
 THREE.TrailRenderer.prototype.destroyMesh = function () {
 
-    if (this.mesh) {
+    if (this.mesh != null) {
         this.scene.remove(this.mesh);
         this.mesh = null;
     }
@@ -846,8 +846,10 @@ THREE.TrailRenderer.prototype.updateIndexRangesForConnectAndDisconnect = functio
 };
 
 THREE.TrailRenderer.prototype.dispose = function () {
+    this.mesh.geometry.dispose();
+    this.mesh.material.dispose();
     this.deactivate();
-    this.mesh.dispose();
+    this.destroyMesh();
 };
 
 THREE.TrailRenderer.prototype.deactivate = function () {
