@@ -3,12 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <script src="../three.js/build/three.js"></script>
-	<script src="../three.js/examples/js/Detector.js"></script>
-	<script src="../three.js/examples/js/libs/stats.min.js"></script>
-	<script src="../three.js/examples/js/controls/OrbitControls.js"></script>	
-	<script src="../three.js/examples/js/loaders/OBJLoader.js"></script>
-	<script src='../three.js/examples/js/libs/dat.gui.min.js'></script>
+    <script src="bower_components/three.js/build/three.js"></script>
+	<script src="bower_components/three.js/examples/js/Detector.js"></script>
+	<script src="bower_components/three.js/examples/js/libs/stats.min.js"></script>
+	<script src="bower_components/three.js/examples/js/controls/OrbitControls.js"></script>
+	<script src="bower_components/three.js/examples/js/loaders/OBJLoader.js"></script>
+	<script src='bower_components/three.js/examples/js/libs/dat.gui.min.js'></script>
 	<script src="js/TrailRenderer.js"></script>
     <style>
 		body {
@@ -26,7 +26,12 @@
 			z-index: 50;
 			display:block;
 		}
-		#info a { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
+		#info a {
+            color: #f00;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer
+        }
 	</style>
     <title>Three.js Trail Renderer</title>
 </head>
@@ -38,24 +43,22 @@
 
 <div id="renderingContainer" style="position: absolute; left:0px; top:0px"></div>
 
-<script>
+<script type="text/javascript">
 
-	var TrailTypes = Object.freeze(
-	{
+	var TrailTypes = Object.freeze({
 		Basic : 1,
 		Textured : 2
-	} );
+	});
 
-	var TrailShapes = Object.freeze(
-	{
+	var TrailShapes = Object.freeze({
 		Plane : 1,
 		Star : 2,
 		Circle : 3
-	} );
+	});
 
 	var scene, gui, renderer, clock;
 	var camera, pointLight, ambientLight, controls, stats;
-	
+
 	var options;
 	var starPoints, circlePoints, planePoints;
 	var trailTarget;
@@ -131,7 +134,7 @@
 
 	function initGUI() {
 
-		gui = new dat.GUI();  
+		gui = new dat.GUI();
 
 		gui.add( options, 'trailType', { Basic : TrailTypes.Basic, Textured : TrailTypes.Textured } ).name( "Trail type" ).onChange( function() {
 
@@ -140,11 +143,11 @@
 
 			} );
 
-		gui.add( options, 'trailShape', 
-			{ 
-				Plane : TrailShapes.Plane, 
-				Star : TrailShapes.Star, 
-				Circle : TrailShapes.Circle 
+		gui.add( options, 'trailShape',
+			{
+				Plane : TrailShapes.Plane,
+				Star : TrailShapes.Star,
+				Circle : TrailShapes.Circle
 			} ).name( "Trail shape" ).onChange( function() {
 
 				options.trailShape = parseInt( options.trailShape );
@@ -152,10 +155,10 @@
 
 			} );
 
-		gui.add(options, "trailLength", 0, 1000).name( "Trail length" ).onChange( updateTrailLength );	
+		gui.add(options, "trailLength", 0, 1000).name( "Trail length" ).onChange( updateTrailLength );
 		gui.add( options, 'depthWrite' ).name( "Depth write" ).onChange( updateTrailDepthWrite );
 		gui.add( options, 'pauseSim' ).name( "Pause simulation" );
-		
+
 		var headColor = gui.addFolder( "Head color" );
 		headColor.add( options, "headRed", 0.0, 1.0, 0.025 ).name( "Red" ).onChange( updateTrailColors );
 		headColor.add( options, "headGreen", 0.0, 1.0, 0.025 ).name( "Green" ).onChange( updateTrailColors );
@@ -214,7 +217,7 @@
 	}
 
 	function initSceneGeometry( onFinished ) {
-		
+
 		initTrailHeadGeometries();
 		initTrailTarget();
 
@@ -291,9 +294,9 @@
 
 	function initTrailRenderers( callback ) {
 
-		trail = new THREE.TrailRenderer( scene, false );	
+		trail = new THREE.TrailRenderer( scene, false );
 
-		baseTrailMaterial = THREE.TrailRenderer.createBaseMaterial();		
+		baseTrailMaterial = THREE.TrailRenderer.createBaseMaterial();
 
 		var textureLoader = new THREE.TextureLoader();
 		textureLoader.load( "textures/sparkle4.jpg", function( tex ) {
@@ -321,7 +324,7 @@
 			initializeTrail();
 
 		}
-		
+
 	}
 
 	function updateTrailLength() {
@@ -342,7 +345,7 @@
 			case TrailTypes.Textured:
 
 				trailMaterial = texturedTrailMaterial;
-				
+
 
 			break;
 
@@ -478,12 +481,12 @@
 				tempQuaternion.setFromUnitVectors( baseForward, currentDirection );
 				tempQuaternion.normalize();
 				tempRotationMatrix.makeRotationFromQuaternion( tempQuaternion );
-				lastRotationMatrix.copy( tempRotationMatrix );							
+				lastRotationMatrix.copy( tempRotationMatrix );
 
 			}
-			
+
 			tempTranslationMatrix.makeTranslation ( currentTargetPosition.x, currentTargetPosition.y, currentTargetPosition.z );
-			tempTranslationMatrix.multiply( tempRotationMatrix );  
+			tempTranslationMatrix.multiply( tempRotationMatrix );
 
 			trailTarget.matrix.identity();
 			trailTarget.applyMatrix( tempTranslationMatrix );
