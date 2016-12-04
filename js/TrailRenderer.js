@@ -201,10 +201,11 @@ THREE.TrailRenderer.createBaseMaterial = function (customUniforms) {
     return this.createMaterial(THREE.TrailRenderer.Shader.BaseVertexShader, THREE.TrailRenderer.Shader.BaseFragmentShader, customUniforms);
 };
 
-THREE.TrailRenderer.createTexturedMaterial = function (customUniforms) {
+THREE.TrailRenderer.createTexturedMaterial = function (texture, customUniforms) {
 
     customUniforms = {};
     customUniforms.texture = {type: "t", value: null};
+    customUniforms.texture.value = texture || null;
 
     return this.createMaterial(THREE.TrailRenderer.Shader.TexturedVertexShader, THREE.TrailRenderer.Shader.TexturedFragmentShader, customUniforms);
 };
@@ -859,16 +860,27 @@ THREE.TrailRenderer.prototype.getTailColor = function () {
 /**
  *
  * @param {number} alpha
+ * @returns {THREE.TrailRenderer} this
  */
 THREE.TrailRenderer.prototype.setTailAlpha = function (alpha) {
     var x = this.material.uniforms.tailColor.value.x;
     var y = this.material.uniforms.tailColor.value.y;
     var z = this.material.uniforms.tailColor.value.z;
     this.material.uniforms.tailColor.value.set(x, y, z, alpha);
+    return this;
 };
 
 THREE.TrailRenderer.prototype.getTailAlpha = function () {
     return this.material.uniforms.tailColor.value.w;
+};
+
+THREE.TrailRenderer.prototype.setTexture = function (tex) {
+    this.material.uniforms.texture.value = tex;
+    return this;
+};
+
+THREE.TrailRenderer.prototype.getTexture = function () {
+
 };
 
 /**
